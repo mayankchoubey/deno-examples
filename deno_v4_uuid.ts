@@ -1,5 +1,5 @@
 for(let i=0; i<5; i++)
-    console.log(crypto.randomUUID());
+    crypto.randomUUID();
 
 //49d25949-7045-4bdd-a17b-a5b4e3f16be1
 //0b661bd4-61a3-4d33-bb39-5d30d299d7b0
