@@ -9,7 +9,7 @@ export class ProgressIndicator {
     private nextUpdateTS:number=Date.now();
     private enc:TextEncoder=new TextEncoder();
     private type:ProgressIndicatorType;
-    private updateInterval:number=200;
+    private updateInterval:number=100;
     private dotsCounter:number=0;
 
     constructor(type:ProgressIndicatorType=ProgressIndicatorType.DOTS, numUnits:number=0) {
