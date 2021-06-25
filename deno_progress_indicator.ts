@@ -11,19 +11,23 @@ export class ProgressIndicator {
     private type:ProgressIndicatorType;
     private updateInterval:number=100;
     private dotsCounter:number=0;
+    private updateFn;
 
     constructor(type:ProgressIndicatorType=ProgressIndicatorType.DOTS, numUnits:number=0) {
         this.type=type;
         switch(this.type) {
             case ProgressIndicatorType.BAR:
+                this.updateFn=this.updateBars;
                 this.numUnits=numUnits || 50;
                 break;
 
             case ProgressIndicatorType.PERCENT:
+                this.updateFn=this.updatePct;
                 this.numUnits=0;
                 break;
 
             case ProgressIndicatorType.DOTS:
+                this.updateFn=this.updateDots;
                 this.numUnits=numUnits || 5;
                 break;
         }
@@ -60,19 +64,7 @@ export class ProgressIndicator {
         const currTS=Date.now();
         if(c<t && currTS<this.nextUpdateTS)
             return;
-        switch(this.type) {
-            case ProgressIndicatorType.BAR:
-                await this.updateBars(t, c);
-                break;
-
-            case ProgressIndicatorType.DOTS:
-                await this.updateDots(t, c);
-                break;
-
-            case ProgressIndicatorType.PERCENT:
-                await this.updatePct(t, c);
-                break;
-        }
+        await this.updateFn(t, c);
         this.nextUpdateTS=currTS+this.updateInterval;
     }
 }
