@@ -1,1 +1,5 @@
-addEventListener('fetch', e => e.respondWith(new Response('Hello world')));
+import { serve } from "https://deno.land/std/http/server.ts";
+serve(req => new Response("Hello World!", {
+    headers: { "content-type": "text/plain" },
+  });
+);
